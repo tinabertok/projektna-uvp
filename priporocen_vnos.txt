@@ -1,0 +1,5 @@
+kalorije,2000
+OH,400
+beljakovine,300
+vitamini,400
+mašèobe,100
