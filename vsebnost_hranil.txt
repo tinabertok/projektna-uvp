@@ -32,3 +32,5 @@ brokoli,kalorije:34,vitamini:123
 špinaèa,kalorije:23,vitamini:145
 
 grah,kalorije:45,vitamini:76
+
+

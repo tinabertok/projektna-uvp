@@ -54,12 +54,12 @@ class Lastnosti:
 
     def dodaj_vrednosti(self, zivilo, teza):
         '''Preračunamo hranilne vrednosti in kalorije glede na količino vnosa.'''
-        if zivilo not in self.slovar_zivil:
-            novo_zivilo = input('Dodaj ime novega živila, njegove kalorije na 100g ter ostale hranilne vrednosti.') 
-            with open(r'vsebnost_hranil.txt', 'a') as f: # Zapišemo novo živilo v datoteko
-                print('\n', novo_zivilo, file=f, sep='') # Napisali smo še \n da gre v novo vrstico in sep, da ni presledkov
-            self.slovar_zivil = slovar_kalorij(r'vsebnost_hranil.txt')# Dodamo novo živilo in posodobimo slovar
-            
+##        if zivilo not in self.slovar_zivil:
+##            novo_zivilo = input('Dodaj ime novega živila, njegove kalorije na 100g ter ostale hranilne vrednosti.') 
+##            with open(r'vsebnost_hranil.txt', 'a') as f: # Zapišemo novo živilo v datoteko
+##                print('\n' + novo_zivilo, file=f, sep='') # Napisali smo še \n da gre v novo vrstico in sep, da ni presledkov
+##            self.slovar_zivil = slovar_kalorij(r'vsebnost_hranil.txt')# Dodamo novo živilo in posodobimo slovar
+##            
         for kljuc, vrednost in self.slovar_zivil[zivilo].items():
             self.lastnosti[kljuc] = round(self.lastnosti.get(kljuc, 0) + teza * (vrednost / 100),2)
 
@@ -86,9 +86,11 @@ class Lastnosti:
         elif kalorije >= 2000:
             aktivnost = 's kolesarjenjem'
         else:
-            return 'Vaš dnevni vnos kalorij je primeren.'
-            
-        return 'Priporočamo vam, da se vsaj trikrat tedensko po 30 minut ukvarjate {}.'.format(aktivnost)
+            #return 'Vaš dnevni vnos kalorij je primeren.'
+            return "primerno"
+
+        return aktivnost    
+        #return 'Priporočamo vam, da se vsaj trikrat tedensko po 30 minut ukvarjate {}.'.format(aktivnost)
 
 
 
@@ -108,25 +110,22 @@ class Lastnosti:
     def najdi(self):
         
         '''Najde zivilo z največjo vsebnostjo lastnosti, ki nam je primanjkuje. Vrne nam seznam teh zivil skupaj z količino, ki jo moramo pojesti.'''
-        superzivila = []
-        for lastnost_razlike, vrednost_razlike in self.slovar_razlik().items():
-           if vrednost_razlike < -200:
-               
-               # Poiščemo najprimernejše živilo, z največjo vsebnostjo te lastnosti
-               naj_zivilo = None
-               naj_vrednost = 0
-               for zivilo, splosne_lastnosti in self.slovar_zivil.items():
-                   
-                   if lastnost_razlike in splosne_lastnosti:
-                       vrednost = splosne_lastnosti[lastnost_razlike]
-                       
-                       if naj_vrednost < vrednost:
-                           naj_vrednost = vrednost
-                           naj_zivilo  = zivilo
-
-               if naj_zivilo is not None:
-                   superzivila.append((naj_zivilo, round(vrednost_razlike / (-naj_vrednost),2)))              
-        return superzivila
+        slovar_razlik = self.slovar_razlik()
+        slovar_priporocil = {}
+        for lastnost in slovar_razlik.keys():
+            if slovar_razlik[lastnost] < -50:
+                #Poiščemo najprimernejše živilo
+                kandidati = []
+                for zivilo in self.slovar_zivil.keys():
+                    vrednost = self.slovar_zivil[zivilo].get(lastnost,0)
+                    if vrednost>0:
+                        kandidati.append([vrednost,zivilo])
+                #print(kandidati)
+                slovar_priporocil[lastnost] = max(kandidati)[1]                
+            else:
+                slovar_priporocil[lastnost] = ""
+        #print(slovar_priporocil)
+        return slovar_priporocil
 
 
 
@@ -152,20 +151,20 @@ class Lastnosti:
                      
         
 
-
-
-    
-lastnosti = Lastnosti()
-
-
-
-
-
-for _ in range(3):
-    zivilo, teza = vnos()
-    lastnosti.dodaj_vrednosti(zivilo, teza)
-    print(lastnosti)
-
-print(lastnosti.slovar_razlik())
-
-print(lastnosti.najdi())        
+##
+##
+##    
+##lastnosti = Lastnosti()
+##
+##
+##
+##
+##
+##for _ in range(3):
+##    zivilo, teza = vnos()
+##    lastnosti.dodaj_vrednosti(zivilo, teza)
+##    print(lastnosti)
+##
+##print(lastnosti.slovar_razlik())
+##
+##print(lastnosti.najdi())        
