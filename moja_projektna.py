@@ -78,13 +78,13 @@ class Lastnosti:
 
 
         if kalorije >= 3000:
-            aktivnost = 'z rolanjem'
+            aktivnost = "ROLANJE"
             
         elif kalorije >= 2500:
-            aktivnost = 's tekom'
+            aktivnost = "TEK"
             
         elif kalorije >= 2000:
-            aktivnost = 's kolesarjenjem'
+            aktivnost = "KOLESARJENJE"
         else:
             #return 'Vaš dnevni vnos kalorij je primeren.'
             return "primerno"
@@ -109,7 +109,7 @@ class Lastnosti:
 
     def najdi(self):
         
-        '''Najde zivilo z največjo vsebnostjo lastnosti, ki nam je primanjkuje. Vrne nam seznam teh zivil skupaj z količino, ki jo moramo pojesti.'''
+        '''Najde zivilo z največjo vsebnostjo lastnosti, ki nam je primanjkuje. Vrne nam slovar teh zivil.'''
         slovar_razlik = self.slovar_razlik()
         slovar_priporocil = {}
         for lastnost in slovar_razlik.keys():
