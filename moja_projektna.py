@@ -130,30 +130,27 @@ class Lastnosti:
 
 
 
-##    def primerjava(self):
-##        slovar_razlik = self.slovar_razlik()
-##        return slovar_razlik
-##        
-##            
 
-
-
-
-
-##            if vrednost_x < priporocena_vrednost:
-##                print (lastnost_x, round(vrednost_x,2)) #hočemo da prikaže BOLD
-            
-    
-    
                
                            
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
                      
-        
-
-##
-##
-##    
+         
 ##lastnosti = Lastnosti()
 ##
 ##
